@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Filter App</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { max-width: 800px; margin: auto; }
+        .filter-buttons { margin-bottom: 20px; }
+        button { margin: 5px; padding: 10px; cursor: pointer; }
+        .products { display: flex; flex-wrap: wrap; justify-content: center; }
+        .product { border: 1px solid #ccc; padding: 15px; margin: 10px; width: 150px; }
+        .search-bar { margin-bottom: 20px; padding: 10px; width: 80%; max-width: 300px; }
+        .range-filter { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Filter App</h1>
+        <input type="text" id="search-bar" class="search-bar" placeholder="Search products..." onkeyup="searchProducts()">
+        <div class="range-filter">
+            <label for="price-range">Max Price: </label>
+            <input type="range" id="price-range" min="0" max="2000" step="50" value="2000" oninput="filterByPrice()">
+            <span id="price-value">2000</span>
+        </div>
+        <div class="filter-buttons">
+            <button onclick="filterProducts('all')">All</button>
+            <button onclick="filterProducts('electronics')">Electronics</button>
+            <button onclick="filterProducts('clothing')">Clothing</button>
+            <button onclick="filterProducts('books')">Books</button>
+        </div>
+        <div class="products" id="product-list">
+            <div class="product" data-category="electronics" data-price="1500">Laptop - $1500</div>
+            <div class="product" data-category="electronics" data-price="800">Mobile - $800</div>
+            <div class="product" data-category="clothing" data-price="50">T-Shirt - $50</div>
+            <div class="product" data-category="clothing" data-price="100">Jeans - $100</div>
+            <div class="product" data-category="books" data-price="30">JavaScript Book - $30</div>
+            <div class="product" data-category="books" data-price="40">HTML & CSS Book - $40</div>
+        </div>
+    </div>
+    
+    <script>
+        function filterProducts(category) {
+            let products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                if (category === 'all' || product.getAttribute('data-category') === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        function searchProducts() {
+            let input = document.getElementById('search-bar').value.toLowerCase();
+            let products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                if (product.textContent.toLowerCase().includes(input)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+
+        function filterByPrice() {
+            let maxPrice = document.getElementById('price-range').value;
+            document.getElementById('price-value').textContent = maxPrice;
+            let products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                let price = parseInt(product.getAttribute('data-price'));
+                if (price <= maxPrice) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

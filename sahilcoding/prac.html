@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Bar</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header class="header">
+        <!-- Left Side - Menu Icon and Logo -->
+        <div class="left">
+            <i class="fas fa-bars menu-icon"></i>
+            <h1 class="logo">MyShop</h1>
+        </div>
+
+        <!-- Center - Navigation -->
+        <nav class="nav">
+            <a href="#">Home</a>
+            <a href="#">Shopping</a>
+            <a href="#">About</a>
+            <a href="#">Category</a>
+        </nav>
+
+        <!-- Right Side - Search Bar, Button, and Cart Icon -->
+        <div class="right">
+            <input type="text" placeholder="Search..." class="search-bar">
+            <button class="search-button">Search</button>
+            <i class="fas fa-shopping-cart cart-icon"></i>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Discover the Best Deals</h1>
+            <p>Shop the latest trends at unbeatable prices. Experience shopping like never before.</p>
+            <button class="shop-now">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- New Section -->
+    <section class="info-section">
+        <h2>Welcome to MyShop</h2>
+        <p>Find the best products at the best prices. Browse through our collection and enjoy amazing discounts!</p>
+        <button class="explore-button">Explore Now</button>
+    </section>
+</body>
+
+</html>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: green;
+        padding: 10px 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .menu-icon,
+    .cart-icon {
+        font-size: 24px;
+        cursor: pointer;
+        color: black;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: black;
+    }
+
+    .nav {
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav a {
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+    }
+
+    .nav a:hover {
+        color: blue;
+    }
+
+    .right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .search-bar {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .search-button {
+        padding: 5px 10px;
+        border: none;
+        background: black;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .search-button:hover {
+        background: darkgray;
+    }
+
+    .hero-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        background: #1c1c1c;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 600px;
+    }
+
+    .hero-content h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    .hero-content p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .shop-now {
+        padding: 10px 20px;
+        background: green;
+        color: white;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .shop-now:hover {
+        background: darkgreen;
+    }
+
+    .info-section {
+        text-align: center;
+        padding: 50px 20px;
+        background: #222;
+    }
+
+    .info-section h2 {
+        font-size: 28px;
+    }
+
+    .info-section p {
+        font-size: 18px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .explore-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        background: green;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .explore-button:hover {
+        background: darkgreen;
+    }
+
+    @media screen and (max-width: 768px) {
+        .header {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .nav {
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .right {
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .search-bar {
+            width: 100%;
+        }
+
+        .hero-section {
+            height: 60vh;
+            padding: 20px;
+        }
+    }
+</style>

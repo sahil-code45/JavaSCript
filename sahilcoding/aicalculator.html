@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const { useState } = React;
+
+        function Calculator() {
+            const [display, setDisplay] = useState('0');
+            const [operation, setOperation] = useState(null);
+            const [num1, setNum1] = useState('');
+            const [num2, setNum2] = useState('');
+
+            const handleNumberClick = (number) => {
+                if (operation === null) {
+                    setNum1(num1 + number);
+                    setDisplay(display === '0' ? number : display + number);
+                } else {
+                    setNum2(num2 + number);
+                    setDisplay(display === '0' ? number : display + number);
+                }
+            };
+
+            const handleOperatorClick = (operator) => {
+                setOperation(operator);
+                setDisplay('0');
+            };
+
+            const handleCalculate = () => {
+                if (operation === '+') {
+                    setDisplay(parseFloat(num1) + parseFloat(num2));
+                } else if (operation === '-') {
+                    setDisplay(parseFloat(num1) - parseFloat(num2));
+                } else if (operation === '*') {
+                    setDisplay(parseFloat(num1) * parseFloat(num2));
+                } else if (operation === '/') {
+                    if (num2 !== '0') {
+                        setDisplay(parseFloat(num1) / parseFloat(num2));
+                    } else {
+                        setDisplay('Error');
+                    }
+                }
+                setNum1('');
+                setNum2('');
+                setOperation(null);
+            };
+
+            const handleClear = () => {
+                setDisplay('0');
+                setNum1('');
+                setNum2('');
+                setOperation(null);
+            };
+
+            return (
+                <div className="container mt-5">
+                    <h1>Calculator App</h1>
+                    <div className="row">
+                        <div className="col-12 mb-4">
+                            <input type="text" value={display} className="form-control" readOnly />
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-primary w-100" onClick={() => handleNumberClick('7')}>7</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-primary w-100" onClick={() => handleNumberClick('8')}>8</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-primary w-100" onClick={() => handleNumberClick('9')}>9</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-danger w-100" onClick={() => handleOperatorClick('/')}>/</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-primary w-100" onClick={() => handleNumberClick('4')}>4</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-primary w-100" onClick={() => handleNumberClick('5')}>5</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-primary w-100" onClick={() => handleNumberClick('6')}>6</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-danger w-100" onClick={() => handleOperatorClick('*')}>*</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-primary w-100" onClick={() => handleNumberClick('1')}>1</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-primary w-100" onClick={() => handleNumberClick('2')}>2</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-primary w-100" onClick={() => handleNumberClick('3')}>3</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-danger w-100" onClick={() => handleOperatorClick('-')}>-</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-primary w-100" onClick={() => handleNumberClick('0')}>0</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-primary w-100" onClick={() => handleNumberClick('.')}>.</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-success w-100" onClick={handleCalculate}>=</button>
+                        </div>
+                        <div className="col-3 mb-3">
+                            <button className="btn btn-danger w-100" onClick={() => handleOperatorClick('+')}>+</button>
+                        </div>
+                        <div className="col-12 mb-3">
+                            <button className="btn btn-secondary w-100" onClick={handleClear}>C</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Calculator />);
+    </script>
+</body>
+</html>

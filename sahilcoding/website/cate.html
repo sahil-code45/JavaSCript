@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Categories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .categories-section {
+            padding: 80px 20px;
+            background-color: #fff;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-subtitle {
+            color: #ffcc01;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            color: #000000;
+            margin-top: 15px;
+        }
+
+        .categories-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .category-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 25px;
+            color: white;
+        }
+
+        .category-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .category-btn {
+            background-color: #ffcc01;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .category-btn:hover {
+            background-color: #000000;
+        }
+
+        @media (max-width: 992px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-image {
+                height: 300px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="categories-section">
+        <div class="section-heading">
+            <span class="section-subtitle">Explore Our Menu</span>
+            <h2 class="section-title">Food Categories</h2>
+        </div>
+
+        <div class="categories-grid">
+            <!-- Appetizers -->
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1585238342024-78d387f4a707" 
+                     alt="Appetizers" 
+                     class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Appetizers</h3>
+                    <button class="category-btn">View Menu</button>
+                </div>
+            </div>
+
+            <!-- Main Course -->
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445" 
+                     alt="Main Course" 
+                     class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Main Course</h3>
+                    <button class="category-btn">View Menu</button>
+                </div>
+            </div>
+
+            <!-- Desserts -->
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307" 
+                     alt="Desserts" 
+                     class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Desserts</h3>
+                    <button class="category-btn">View Menu</button>
+                </div>
+            </div>
+
+            <!-- Drinks -->
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87" 
+                     alt="Beverages" 
+                     class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Drinks & Beverages</h3>
+                    <button class="category-btn">View Menu</button>
+                </div>
+            </div>
+
+            <!-- Salads -->
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e" 
+                     alt="Salads" 
+                     class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Fresh Salads</h3>
+                    <button class="category-btn">View Menu</button>
+                </div>
+            </div>
+
+            <!-- Seafood -->
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1561154464-82e9adf32764" 
+                     alt="Seafood" 
+                     class="category-image">
+                <div class="category-overlay">
+                    <h3 class="category-title">Seafood Specials</h3>
+                    <button class="category-btn">View Menu</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+

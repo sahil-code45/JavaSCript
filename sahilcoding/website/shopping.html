@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu | Fresh & Delicious</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background: linear-gradient(45deg,#ffcc01, #ff8e8e);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .categories-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 3px solid #ffcc01;
+        }
+
+        .category-content {
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .category-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            color:#ffcc01;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            background: #ffcc01;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .add-to-cart:hover {
+            background: linear-gradient(45deg,#ffcc01, #ff8e8e);
+        }
+
+        .shopping-cart {
+            
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 30vh;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: -2px 0 15px rgba(0,0,0,0.1);
+            padding: 2rem;
+            overflow-x: auto;
+            z-index: 1000;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+            margin-right: 1rem;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-price {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color:#ffcc01;
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .cart-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            text-align: right;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            .categories-container {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+
+            .shopping-cart {
+                width: 100%;
+                height: auto;
+                bottom: 0;
+                top: auto;
+                max-height: 60vh;
+            }
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4CAF50;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { bottom: -50px; }
+            to { bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🍴 Fresh Bites Restaurant</h1>
+        <p>Explore our 20 delicious categories</p>
+    </header>
+
+    <div class="categories-container" id="categories">
+        <!-- Categories will be populated by JavaScript -->
+    </div>
+
+    <div class="shopping-cart">
+        <h2 style="margin-bottom: 2rem; color: #333;">🛒 Your Cart</h2>
+        <div id="cart-items"></div>
+        <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
+    </div>
+
+    <div class="notification" id="notification">
+        Item added to cart!
+    </div>
+
+    <script>
+        // Enhanced categories with better images
+        const categories = [
+            {id: 1, name: 'Italian Pasta', price: 14.99, 
+             image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445',
+             description: 'Handmade pasta with authentic sauces'},
+            {id: 2, name: 'Gourmet Pizza', price: 18.99,
+             image: 'https://images.unsplash.com/photo-1585238342024-78d387f4a707',
+             description: 'Wood-fired thin crust pizzas'},
+            {id: 3, name: 'Fresh Salads', price: 12.99,
+             image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87',
+             description: 'Crispy fresh garden salads'},
+            {id: 4, name: 'Premium Steaks', price: 29.99,
+             image: 'https://images.unsplash.com/photo-1561154464-82e9adf32764',
+             description: 'USDA prime cuts grilled to perfection'},
+            // Add remaining categories...
+            {id: 20, name: 'Artisan Desserts', price: 9.99,
+             image: 'https://images.unsplash.com/photo-1519996529931-28324d5a630e',
+             description: 'Decadent sweet creations'}
+        ];
+
+        let cart = [];
+        
+        // Generate category cards
+        const container = document.getElementById('categories');
+        categories.forEach(category => {
+            const card = document.createElement('div');
+            card.className = 'category-card';
+            card.innerHTML = `
+                <img src="${category.image}" alt="${category.name}" class="category-image">
+                <div class="category-content">
+                    <h3 class="category-title">${category.name}</h3>
+                    <p class="category-description">${category.description}</p>
+                    <p class="price">$${category.price.toFixed(2)}</p>
+                    <button onclick="addToCart(${category.id})" class="add-to-cart">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Cart functionality
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 2000);
+        }
+
+        function addToCart(categoryId) {
+            const category = categories.find(c => c.id === categoryId);
+            const existingItem = cart.find(item => item.id === categoryId);
+            
+            if(existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({...category, quantity: 1});
+            }
+            
+            showNotification();
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            const totalElement = document.getElementById('cart-total');
+            let total = 0;
+            
+            cartItems.innerHTML = '';
+            
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">
+                            ${item.quantity} x $${item.price.toFixed(2)}
+                        </div>
+                    </div>
+                    <div>
+                        <button onclick="adjustQuantity(${item.id}, -1)" class="cart-item-remove">−</button>
+                        <button onclick="adjustQuantity(${item.id}, 1)" class="cart-item-remove">+</button>
+                        <button onclick="removeFromCart(${item.id})" class="cart-item-remove">&times;</button>
+                    </div>
+                `;
+                cartItems.appendChild(itemElement);
+            });
+            
+            totalElement.textContent = total.toFixed(2);
+        }
+
+        function adjustQuantity(categoryId, amount) {
+            const item = cart.find(item => item.id === categoryId);
+            if(item) {
+                item.quantity += amount;
+                if(item.quantity < 1) removeFromCart(categoryId);
+                else updateCartDisplay();
+            }
+        }
+
+        function removeFromCart(categoryId) {
+            cart = cart.filter(item => item.id !== categoryId);
+            updateCartDisplay();
+        }
+    </script>
+</body>
+</html>

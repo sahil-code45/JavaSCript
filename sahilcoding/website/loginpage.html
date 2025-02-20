@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muse - Login/Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #040404,#ffcc01);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
+            transition: 0.3s ease;
+        }
+
+        .form-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form {
+            display: none;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: 0.3s ease;
+        }
+
+        .form.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toggle-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .toggle-btn {
+            cursor: pointer;
+            color: #ffcc01;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #ffcc01;
+            outline: none;
+        }
+
+        .password-strength {
+            height: 3px;
+            background: #eee;
+            margin-top: 5px;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0;
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ffcc01;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg,#ffcc01, #ff8e8e);
+            border: 3px solid #020202;
+        }
+
+        .social-login {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons i {
+            font-size: 24px;
+            color: #0b0909;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .social-icons i:hover {
+            color: #ffcc01;
+        }
+
+        .error {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <!-- Login Form -->
+            <form id="loginForm" class="form active">
+                <h1>Login</h1>
+                <div class="input-group">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <span class="error" id="loginEmailError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <span class="error" id="loginPasswordError"></span>
+                </div>
+                <button type="submit">Login</button>
+                <div class="toggle-container">
+                    <span>New user? <span class="toggle-btn" onclick="showSignup()">Signup here</span></span>
+                </div>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="form">
+                <h1>Signup</h1>
+                <div class="input-group">
+                    <input type="text" id="signupName" placeholder="Full Name" required>
+                    <span class="error" id="signupNameError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="signupEmail" placeholder="Email" required>
+                    <span class="error" id="signupEmailError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signupPassword" placeholder="Password" required>
+                    <div class="password-strength">
+                        <div class="strength-bar"></div>
+                    </div>
+                    <span class="error" id="signupPasswordError"></span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signupConfirmPassword" placeholder="Confirm Password" required>
+                    <span class="error" id="signupConfirmPasswordError"></span>
+                </div>
+                <button type="submit">Create Account</button>
+                <div class="toggle-container">
+                    <span>Already have account? <span class="toggle-btn" onclick="showLogin()">Login here</span></span>
+                </div>
+            </form>
+        </div>
+
+        <div class="social-login">
+            <p>Or continue with</p>
+            <div class="social-icons">
+                <i class="fab fa-google"></i>
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-apple"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form Toggle
+        function showSignup() {
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('signupForm').classList.add('active');
+        }
+
+        function showLogin() {
+            document.getElementById('signupForm').classList.remove('active');
+            document.getElementById('loginForm').classList.add('active');
+        }
+
+        // Password Strength Checker
+        document.getElementById('signupPassword').addEventListener('input', function(e) {
+            const strengthBar = document.querySelector('.strength-bar');
+            const password = e.target.value;
+            let strength = 0;
+
+            if(password.match(/[A-Z]/)) strength++;
+            if(password.match(/[0-9]/)) strength++;
+            if(password.match(/[^A-Za-z0-9]/)) strength++;
+            if(password.length > 7) strength++;
+
+            const width = (strength/4)*100;
+            strengthBar.style.width = width + '%';
+            strengthBar.style.backgroundColor = width < 50 ? '#ff6b6b' : 
+                                              width < 75 ? '#feca57' : '#4ecdc4';
+        });
+
+        // Form Validation
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if(!validateEmail(email)) {
+                showError('loginEmailError', 'Invalid email format');
+            } else {
+                hideError('loginEmailError');
+            }
+
+            if(password.length < 6) {
+                showError('loginPasswordError', 'Password must be at least 6 characters');
+            } else {
+                hideError('loginPasswordError');
+            }
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+
+            // Name validation
+            if(name.trim() === '') {
+                showError('signupNameError', 'Name is required');
+            } else {
+                hideError('signupNameError');
+            }
+
+            // Email validation
+            if(!validateEmail(email)) {
+                showError('signupEmailError', 'Invalid email format');
+            } else {
+                hideError('signupEmailError');
+            }
+
+            // Password validation
+            if(password.length < 8) {
+                showError('signupPasswordError', 'Password must be at least 8 characters');
+            } else {
+                hideError('signupPasswordError');
+            }
+
+            // Confirm password
+            if(password !== confirmPassword) {
+                showError('signupConfirmPasswordError', 'Passwords do not match');
+            } else {
+                hideError('signupConfirmPasswordError');
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        function hideError(elementId) {
+            document.getElementById(elementId).style.display = 'none';
+        }
+
+        // Demo Local Storage (Remove in production)
+        function storeUser(email, password) {
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('userPassword', password);
+        }
+
+        function checkUser(email, password) {
+            const storedEmail = localStorage.getItem('userEmail');
+            const storedPassword = localStorage.getItem('userPassword');
+            return email === storedEmail && password === storedPassword;
+        }
+    </script>
+</body>
+</html>
