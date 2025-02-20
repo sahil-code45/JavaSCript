@@ -1,0 +1,2 @@
+# JavaSCript
+Code about JavaScript
