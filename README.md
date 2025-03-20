@@ -1,3 +1,3 @@
-# JavaSCript
+# JavaSCript Practice
 Code about JavaScript
-uhgndfngb jjbng
+That is my practice project..
